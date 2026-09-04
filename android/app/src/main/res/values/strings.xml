@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Swasthya Setu Maharashtra</string>
+    <string name="title_activity_main">Swasthya Setu Maharashtra</string>
+    <string name="package_name">gov.maharashtra.swasthyasetu</string>
+    <string name="custom_url_scheme">gov.maharashtra.swasthyasetu</string>
+</resources>
