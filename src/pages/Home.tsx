@@ -13,6 +13,14 @@ import {
   WifiOff,
   Building2,
   HeartPulse,
+  Droplets,
+  Activity,
+  AlertCircle,
+  Stethoscope,
+  Compass,
+  Radio,
+  Clock,
+  ShieldCheck,
 } from 'lucide-react';
 
 interface HomeProps {
@@ -33,12 +41,40 @@ export const Home: React.FC<HomeProps> = ({
 
   return (
     <div className="home-page-container">
+      {/* Live State Intelligence Ticker */}
+      <div className="live-ticker-strip">
+        <div className="ticker-badge">
+          <span className="live-radar-ping"></span>
+          <Radio size={14} className="ticker-radio-icon" />
+          <span>LIVE MAHARASHTRA HEALTH RADAR</span>
+        </div>
+        <div className="ticker-content-track">
+          <div className="ticker-marquee-text">
+            <span>🔴 108 Emergency Ambulance Fleet Live Across 36 Districts</span>
+            <span className="ticker-divider">•</span>
+            <span>🏥 16+ Apex Medical Colleges & Civil Hospitals Synchronized</span>
+            <span className="ticker-divider">•</span>
+            <span>🐍 Anti-Snake Venom (ASV) Stock Active in Gadchiroli, Palghar & Nandurbar</span>
+            <span className="ticker-divider">•</span>
+            <span>💳 MJPJAY 2.0 & Ayushman Bharat ₹5 Lakh Cashless Coverage Guarantee</span>
+            <span className="ticker-divider">•</span>
+            <span>⏱️ 9-Stage Referral Protocol ("इलाज हुआ या नहीं") Tracking Live</span>
+          </div>
+        </div>
+      </div>
+
       {/* Hero Section */}
       <section className="hero-banner-section">
         <div className="hero-content-left">
           <div className="official-gov-badge">
-            <span className="gov-flag">🇮🇳</span>
-            <span>{t.heroBadge}</span>
+            <span className="gov-flag">🏛️</span>
+            <span>
+              {language === 'mr'
+                ? 'महाराष्ट्र शासन • सार्वजनिक आरोग्य विभाग'
+                : language === 'hi'
+                ? 'महाराष्ट्र शासन • सार्वजनिक स्वास्थ्य विभाग'
+                : 'Government of Maharashtra • Public Health Department'}
+            </span>
           </div>
 
           <h1 className="hero-main-heading">
@@ -52,17 +88,18 @@ export const Home: React.FC<HomeProps> = ({
             <button
               className="hero-primary-btn"
               onClick={() => navigate('/healthcare?nearMe=true')}
+              title="Locate Nearest Government Hospital & Check Live Beds"
             >
-              <MapPin size={18} />
+              <Compass size={18} />
               <span>{t.btnFindFacilities}</span>
             </button>
 
-            <button className="hero-ai-voice-btn" onClick={onOpenAINav}>
+            <button className="hero-ai-voice-btn" onClick={onOpenAINav} title="AI Symptom Navigator in Marathi, Hindi & English">
               <Sparkles size={18} />
               <span>{t.btnTalkAi}</span>
             </button>
 
-            <button className="hero-sos-btn" onClick={onOpenSOS}>
+            <button className="hero-sos-btn" onClick={onOpenSOS} title="Trigger 108 Emergency Ambulance Dispatch">
               <ShieldAlert size={18} />
               <span>{t.btnEmergencySOS}</span>
             </button>
@@ -104,30 +141,64 @@ export const Home: React.FC<HomeProps> = ({
           </div>
         </div>
 
-        {/* Hero Interactive Map / Visual Preview Card */}
+        {/* Hero Interactive 3D Map / Visual Preview Card */}
         <div className="hero-visual-card">
           <div className="interactive-map-mock">
             <div className="map-grid-overlay"></div>
 
             {/* Pulsing Facility Pins across Maharashtra */}
-            <div className="facility-map-pin pin-aheri" title="SDH Aheri (Gadchiroli)">
+            <div
+              className="facility-map-pin pin-sassoon"
+              title="Sassoon GH & BJMC Pune"
+              onClick={() => navigate('/healthcare?district=Pune')}
+            >
               <div className="pin-pulse"></div>
-              <span>🏥 SDH Aheri (ASV Ready)</span>
+              <span>🏛️ Sassoon GH Pune (Apex GMC)</span>
             </div>
 
-            <div className="facility-map-pin pin-sassoon" title="Sassoon General Hospital Pune">
+            <div
+              className="facility-map-pin pin-kem"
+              title="KEM Hospital Mumbai"
+              onClick={() => navigate('/healthcare?district=Mumbai+City')}
+            >
               <div className="pin-pulse"></div>
-              <span>🏛️ Sassoon GH Pune (Apex)</span>
+              <span>🏥 KEM Hospital Mumbai</span>
             </div>
 
-            <div className="facility-map-pin pin-bhor" title="CHC Bhor">
+            <div
+              className="facility-map-pin pin-nagpur"
+              title="GMCH Nagpur"
+              onClick={() => navigate('/healthcare?district=Nagpur')}
+            >
               <div className="pin-pulse"></div>
-              <span>🩺 CHC Bhor</span>
+              <span>🏥 GMCH Nagpur (Vidarbha)</span>
             </div>
 
-            <div className="facility-map-pin pin-nashik" title="Civil Hospital Nashik">
+            <div
+              className="facility-map-pin pin-aheri"
+              title="SDH Aheri (Gadchiroli Tribal)"
+              onClick={() => navigate('/healthcare?district=Gadchiroli')}
+            >
+              <div className="pin-pulse"></div>
+              <span>🐍 SDH Aheri (ASV Ready)</span>
+            </div>
+
+            <div
+              className="facility-map-pin pin-nashik"
+              title="Civil Hospital Nashik"
+              onClick={() => navigate('/healthcare?district=Nashik')}
+            >
               <div className="pin-pulse"></div>
               <span>🏥 Civil Hospital Nashik</span>
+            </div>
+
+            <div
+              className="facility-map-pin pin-palghar"
+              title="SDH Dahanu Palghar"
+              onClick={() => navigate('/healthcare?district=Palghar')}
+            >
+              <div className="pin-pulse"></div>
+              <span>🩺 SDH Dahanu (Palghar Coastal)</span>
             </div>
 
             <div className="map-floating-summary">
@@ -147,7 +218,7 @@ export const Home: React.FC<HomeProps> = ({
         </div>
       </section>
 
-      {/* Quick Services Grid */}
+      {/* Quick Services 3D Grid */}
       <section className="quick-services-section">
         <div className="section-title-bar">
           <div>
@@ -157,7 +228,7 @@ export const Home: React.FC<HomeProps> = ({
         </div>
 
         <div className="services-cards-grid">
-          {/* Card 1: Find Hospitals */}
+          {/* Card 1: Find Hospitals & Live Beds */}
           <div className="service-feature-card">
             <div className="card-top-icon blue-theme">
               <Building2 size={24} />
@@ -173,7 +244,39 @@ export const Home: React.FC<HomeProps> = ({
             </button>
           </div>
 
-          {/* Card 2: Schemes */}
+          {/* Card 2: Blood Bank & e-RaktKosh */}
+          <div className="service-feature-card">
+            <div className="card-top-icon red-theme">
+              <Droplets size={24} />
+            </div>
+            <h3>Blood Banks & Components</h3>
+            <p>Real-time units for A+, B+, AB+, O+ blood and platelets across government blood banks.</p>
+            <button
+              className="card-explore-btn blood-btn-color"
+              onClick={() => navigate('/blood-bank')}
+            >
+              <span>Check Stocks</span>
+              <ArrowRight size={14} />
+            </button>
+          </div>
+
+          {/* Card 3: 9-Stage Treatment Tracker */}
+          <div className="service-feature-card">
+            <div className="card-top-icon orange-theme">
+              <Activity size={24} />
+            </div>
+            <h3>9-Stage Referral Tracker</h3>
+            <p>Closed-loop patient treatment verification ("इलाज हुआ या नहीं") with digital milestone tracking.</p>
+            <button
+              className="card-explore-btn"
+              onClick={() => navigate('/treatment-tracker')}
+            >
+              <span>Track Referral</span>
+              <ArrowRight size={14} />
+            </button>
+          </div>
+
+          {/* Card 4: Schemes & MJPJAY 2.0 */}
           <div className="service-feature-card">
             <div className="card-top-icon green-theme">
               <FileText size={24} />
@@ -189,23 +292,7 @@ export const Home: React.FC<HomeProps> = ({
             </button>
           </div>
 
-          {/* Card 3: Smart Referral */}
-          <div className="service-feature-card">
-            <div className="card-top-icon orange-theme">
-              <GitPullRequest size={24} />
-            </div>
-            <h3>{t.cardReferralTitle}</h3>
-            <p>{t.cardReferralDesc}</p>
-            <button
-              className="card-explore-btn"
-              onClick={() => navigate('/referrals')}
-            >
-              <span>{t.btnTrack}</span>
-              <ArrowRight size={14} />
-            </button>
-          </div>
-
-          {/* Card 4: AI Healthcare Navigator */}
+          {/* Card 5: AI Healthcare Navigator */}
           <div className="service-feature-card highlight-ai-card">
             <div className="card-top-icon purple-theme">
               <Sparkles size={24} />
@@ -217,13 +304,29 @@ export const Home: React.FC<HomeProps> = ({
               <ArrowRight size={14} />
             </button>
           </div>
+
+          {/* Card 6: 48-Hour Auto-Escalating Grievance Portal */}
+          <div className="service-feature-card">
+            <div className="card-top-icon crimson-theme">
+              <AlertCircle size={24} />
+            </div>
+            <h3>Grievance & Auto-Escalation</h3>
+            <p>Report medicine stockout, staff misbehavior or overcharging with photo proof & 48h SLA escalation.</p>
+            <button
+              className="card-explore-btn"
+              onClick={() => navigate('/grievances')}
+            >
+              <span>File Grievance</span>
+              <ArrowRight size={14} />
+            </button>
+          </div>
         </div>
       </section>
 
       {/* Smart Referral Pathway Visual Workflow */}
       <section className="referral-workflow-section">
         <div className="referral-text-content">
-          <span className="section-kicker">SMART REFERRAL PATHWAY</span>
+          <span className="section-kicker">SMART CLINICAL REFERRAL PROTOCOL</span>
           <h2>{t.referralFlowHeading}</h2>
           <p>{t.referralFlowDesc}</p>
 

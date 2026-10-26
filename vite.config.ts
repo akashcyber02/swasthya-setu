@@ -12,7 +12,7 @@ export default defineConfig({
       manifest: {
         name: 'Swasthya Setu Maharashtra',
         short_name: 'Swasthya Setu',
-        description: 'सार्वजनिक आरोग्य विभाग, महाराष्ट्र शासन - SIH26133',
+        description: 'सार्वजनिक आरोग्य विभाग, महाराष्ट्र शासन',
         theme_color: '#087f5b',
         background_color: '#087f5b',
         display: 'standalone',

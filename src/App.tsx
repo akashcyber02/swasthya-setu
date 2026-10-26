@@ -222,7 +222,7 @@ function AppContent() {
             <h3>Swasthya Setu Maharashtra</h3>
             <p>{t.footerAbout}</p>
             <div className="footer-dev-credit">
-              💡 <strong>Developed by:</strong> Akash Dhakad & Team (AI Core, MITS Gwalior) • Problem Statement: SIH26133
+              💡 <strong>Lead Architect & Developer:</strong> Akash Dhakad (AI Core, MITS Gwalior) • Public Health Department, Maharashtra
             </div>
           </div>
 
@@ -239,7 +239,7 @@ function AppContent() {
               <a href="/doctor-portal">Doctor Clinical Portal (डॉक्टर पोर्टल)</a>
               <a href="/worker">ASHA Worker Portal (आरोग्य सेवक)</a>
               <a href="/login">🔐 Official Login (लॉगिन)</a>
-              <a href="/developers" className="footer-dev-highlight">🚀 Developers & SIH Team</a>
+              <a href="/developers" className="footer-dev-highlight">🚀 Platform Architecture & Developer</a>
             </div>
           </div>
 
@@ -264,7 +264,7 @@ function AppContent() {
 
         <div className="footer-bottom-strip">
           <span>{t.footerRights}</span>
-          <span>Engineered by Akash Dhakad & Team (MITS Gwalior) for Smart India Hackathon 2026</span>
+          <span>Engineered by Akash Dhakad (AI Engineering, MITS Gwalior) for Public Health Department, Government of Maharashtra</span>
         </div>
       </footer>
     </div>

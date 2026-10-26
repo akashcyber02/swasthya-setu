@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Language } from '../data/translations';
-import { SIH_TEAM_MEMBERS, TeamMember } from '../data/teamData';
+import { LEAD_DEVELOPER } from '../data/teamData';
 import {
   Code,
   GraduationCap,
@@ -9,12 +9,16 @@ import {
   Sparkles,
   CheckCircle2,
   ExternalLink,
-  Users,
   Shield,
   Cpu,
   Layers,
   HeartPulse,
-  Image as ImageIcon,
+  Navigation,
+  Activity,
+  AlertCircle,
+  WifiOff,
+  Droplets,
+  Building,
 } from 'lucide-react';
 
 interface DevelopersProps {
@@ -45,39 +49,9 @@ const GitHubIcon = ({ size = 16 }: { size?: number }) => (
   </svg>
 );
 
-// Photo Avatar Component with Error Fallback
-const TeamMemberAvatar: React.FC<{
-  member: TeamMember;
-  isLead?: boolean;
-}> = ({ member, isLead = false }) => {
-  const [imageError, setImageError] = useState(false);
-
-  if (member.photoUrl && !imageError) {
-    return (
-      <div className={isLead ? 'lead-photo-container' : 'member-photo-container'}>
-        <img
-          src={member.photoUrl}
-          alt={member.name}
-          className={isLead ? 'lead-avatar-img' : 'member-avatar-img'}
-          onError={() => setImageError(true)}
-        />
-      </div>
-    );
-  }
-
-  return (
-    <div
-      className={isLead ? 'lead-avatar-bubble' : 'member-avatar-circle'}
-      style={{ background: member.avatarBg }}
-    >
-      <span>{member.avatarText}</span>
-    </div>
-  );
-};
-
 export const Developers: React.FC<DevelopersProps> = ({ language }) => {
-  const leadMember = SIH_TEAM_MEMBERS.find((m) => m.isLead) || SIH_TEAM_MEMBERS[0];
-  const otherMembers = SIH_TEAM_MEMBERS.filter((m) => !m.isLead);
+  const [imageError, setImageError] = useState(false);
+  const leadMember = LEAD_DEVELOPER;
 
   return (
     <div className="developers-page-container">
@@ -87,38 +61,38 @@ export const Developers: React.FC<DevelopersProps> = ({ language }) => {
           <Award size={18} className="gold-icon" />
           <span>
             {language === 'mr'
-              ? 'स्मार्ट इंडिया हॅकाथॉन (SIH 2026) टीम'
+              ? 'सार्वजनिक आरोग्य विभाग • महाराष्ट्र शासन'
               : language === 'hi'
-              ? 'स्मार्ट इंडिया हैकाथॉन (SIH 2026) टीम'
-              : 'Smart India Hackathon (SIH 2026) Developer Team'}
+              ? 'सार्वजनिक स्वास्थ्य विभाग • महाराष्ट्र शासन'
+              : 'Public Health Department • Government of Maharashtra'}
           </span>
         </div>
 
         <h1>
           {language === 'mr'
-            ? 'प्रकल्प निर्माते व टीम'
+            ? 'प्लॅटफॉर्म आर्किटेक्चर व मुख्य डेव्हलपर'
             : language === 'hi'
-            ? 'प्रोजेक्ट डेवलपर्स एवं टीम'
-            : 'Meet the Developers & SIH Team'}
+            ? 'प्लेटफॉर्म आर्किटेक्चर एवं मुख्य डेवलपर'
+            : 'Platform Architecture & Lead Developer'}
         </h1>
 
         <p>
           {language === 'mr'
-            ? 'माधव इन्स्टिट्यूट ऑफ टेक्नॉलॉजी अँड सायन्स (MITS), ग्वाल्हेर च्या AI Core शाखेच्या विद्यार्थ्यांद्वारे विकसित.'
+            ? 'माधव इन्स्टिट्यूट ऑफ टेक्नॉलॉजी अँड सायन्स (MITS), ग्वाल्हेर च्या AI Core शाखेचे विद्यार्थी आकाश धाकड द्वारे संपूर्ण प्लॅटफॉर्मची निर्मिती.'
             : language === 'hi'
-            ? 'माधव इंस्टीट्यूट ऑफ टेक्नोलॉजी एंड साइंस (MITS), ग्वालियर के AI Core ब्रांच के छात्रों द्वारा विकसित।'
-            : 'Designed & Engineered by AI Core branch students of Madhav Institute of Technology & Science (MITS), Gwalior for Government of Maharashtra.'}
+            ? 'माधव इंस्टीट्यूट ऑफ टेक्नोलॉजी एंड साइंस (MITS), ग्वालियर के AI Core ब्रांच के छात्र आकाश धाकड़ द्वारा संपूर्ण प्लेटफॉर्म का निर्माण।'
+            : 'Designed, Architected & Engineered by Akash Dhakad (AI Core, Madhav Institute of Technology & Science - MITS Gwalior) for Public Health Department, Government of Maharashtra.'}
         </p>
 
-        {/* Problem Statement Pill */}
+        {/* Mission Mandate Banner */}
         <div className="sih-problem-pill">
-          <span className="sih-id-tag">Problem Statement: SIH26133</span>
+          <span className="sih-id-tag">Mission Mandate</span>
           <span>
             {language === 'mr'
-              ? 'ग्रामीण व दुर्गम भागात सार्वजनिक आरोग्य सेवांची सुलभता व गुणवत्ता वाढवणे (महाराष्ट्र शासन)'
+              ? 'महाराष्ट्रातील ३६ जिल्ह्यांमध्ये ग्रामीण व दुर्गम भागात सार्वजनिक आरोग्य सेवांची सुलभता, पारदर्शकता व १००% डिजिटल तक्रार निवारण.'
               : language === 'hi'
-              ? 'ग्रामीण और दुर्गम क्षेत्रों में सार्वजनिक स्वास्थ्य सेवाओं की पहुंच और गुणवत्ता (महाराष्ट्र शासन)'
-              : 'Accessibility and quality of public healthcare services, particularly in rural and underserved areas (Govt of Maharashtra)'}
+              ? 'महाराष्ट्र के ३६ जिलों में ग्रामीण और दुर्गम क्षेत्रों में सार्वजनिक स्वास्थ्य सेवाओं की सुलभता, पारदर्शिता एवं १००% डिजिटल शिकायत निवारण।'
+              : 'Universal Healthcare Access, Real-Time Proximity Radar, 9-Stage Clinical Referral Tracking & Auto-Escalating Grievance Redressal across all 36 Districts of Maharashtra.'}
           </span>
         </div>
       </div>
@@ -130,17 +104,33 @@ export const Developers: React.FC<DevelopersProps> = ({ language }) => {
             <Sparkles size={16} />
             <span>
               {language === 'mr'
-                ? 'टीम लीडर व मुख्य डेव्हलपर'
+                ? 'मुख्य सिस्टीम आर्किटेक्ट व डेव्हलपर'
                 : language === 'hi'
-                ? 'टीम लीडर एवं मुख्य डेवलपर'
-                : 'Team Leader & Lead Full-Stack AI Developer'}
+                ? 'मुख्य सिस्टम आर्किटेक्ट एवं डेवलपर'
+                : 'Lead Full-Stack AI Developer & System Architect'}
             </span>
           </div>
 
           <div className="lead-card-grid">
             {/* Avatar & Key Info */}
             <div className="lead-avatar-col">
-              <TeamMemberAvatar member={leadMember} isLead={true} />
+              <div className="lead-photo-container">
+                {leadMember.photoUrl && !imageError ? (
+                  <img
+                    src={leadMember.photoUrl}
+                    alt={leadMember.name}
+                    className="lead-avatar-img"
+                    onError={() => setImageError(true)}
+                  />
+                ) : (
+                  <div
+                    className="lead-avatar-bubble"
+                    style={{ background: leadMember.avatarBg }}
+                  >
+                    <span>{leadMember.avatarText}</span>
+                  </div>
+                )}
+              </div>
 
               <h2>{leadMember.name}</h2>
               <div className="lead-role-title">{leadMember.role}</div>
@@ -201,10 +191,10 @@ export const Developers: React.FC<DevelopersProps> = ({ language }) => {
             <div className="lead-bio-col">
               <h3>
                 {language === 'mr'
-                  ? 'प्रकल्पातील मुख्य योगदान व भूमिका'
+                  ? 'प्लॅटफॉर्म आर्किटेक्चर व मुख्य वैशिष्ट्ये'
                   : language === 'hi'
-                  ? 'प्रोजेक्ट में मुख्य योगदान एवं भूमिका'
-                  : 'Core Project Role & Key Contributions'}
+                  ? 'प्लेटफॉर्म आर्किटेक्चर एवं मुख्य विशेषताएं'
+                  : 'Core Platform Architecture & Engineering Innovations'}
               </h3>
               <p className="lead-bio-text">{leadMember.bio}</p>
 
@@ -221,112 +211,172 @@ export const Developers: React.FC<DevelopersProps> = ({ language }) => {
         </div>
       </section>
 
-      {/* All Team Members Section */}
+      {/* Core Platform Modules Grid */}
       <section className="team-grid-section">
         <div className="team-section-header">
-          <Users size={22} className="team-header-icon" />
+          <Building size={22} className="team-header-icon" />
           <div>
             <h2>
               {language === 'mr'
-                ? 'हॅकाथॉन टीम सदस्य (SIH 2026)'
+                ? 'प्लॅटफॉर्मची ६ मुख्य इंजिनिअरिंग मॉड्यूल्स'
                 : language === 'hi'
-                ? 'हैकाथॉन टीम सदस्य (SIH 2026)'
-                : 'SIH 2026 Team Members & Contributors'}
+                ? 'प्लेटफॉर्म के ६ मुख्य इंजीनियरिंग मॉड्यूल्स'
+                : 'Core System Modules & Functional Architecture'}
             </h2>
             <p>
               {language === 'mr'
-                ? 'MITS ग्वाल्हेरच्या ६-सदस्यीय टीमचे योगदान'
+                ? 'नागरिक, डॉक्टर्स, आशा सेविका आणि जिल्हा प्रशासनासाठी अखंड एकात्मिक प्रणाली'
                 : language === 'hi'
-                ? 'MITS ग्वालियर के ६-सदस्यीय टीम का योगदान'
-                : '6-Member Engineering Team from Madhav Institute of Technology & Science (MITS), Gwalior'}
+                ? 'नागरिकों, डॉक्टरों, आशा कार्यकर्ताओं और जिला प्रशासन के लिए एकीकृत प्रणाली'
+                : 'Integrated digital ecosystem connecting Citizens, Doctors, ASHA Workers, and District Health Officers'}
             </p>
           </div>
         </div>
 
         <div className="team-members-grid">
-          {otherMembers.map((member) => (
-            <div className="team-member-card" key={member.id}>
-              <div className="member-card-header">
-                <TeamMemberAvatar member={member} isLead={false} />
-
-                <div className="member-name-group">
-                  <h3>{member.name}</h3>
-                  <span className="member-role-badge">{member.role}</span>
-                </div>
+          {/* Module 1: GPS Radar */}
+          <div className="team-member-card">
+            <div className="member-card-header">
+              <div className="member-avatar-circle" style={{ background: 'linear-gradient(135deg, #059669 0%, #10b981 100%)' }}>
+                <Navigation size={20} color="white" />
               </div>
-
-              <div className="member-academic-meta">
-                <div className="meta-item">
-                  <GraduationCap size={15} />
-                  <span>{member.college}</span>
-                </div>
-                <div className="meta-item">
-                  <Cpu size={15} />
-                  <span>
-                    {member.branch} • {member.year}
-                  </span>
-                </div>
-              </div>
-
-              <p className="member-bio-text">{member.bio}</p>
-
-              {/* Contributions */}
-              <div className="member-contributions-box">
-                <strong>
-                  {language === 'mr'
-                    ? 'योगदान:'
-                    : language === 'hi'
-                    ? 'योगदान:'
-                    : 'Contributions:'}
-                </strong>
-                <ul>
-                  {member.contributions.map((c, i) => (
-                    <li key={i}>{c}</li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Social Links */}
-              <div className="member-links-footer">
-                {member.email ? (
-                  <a
-                    href={`mailto:${member.email}`}
-                    className="member-social-link"
-                    title="Send Email"
-                  >
-                    <Mail size={15} />
-                    <span>Email</span>
-                  </a>
-                ) : null}
-
-                {member.linkedin && member.linkedin !== 'NOT AVAILABLE' && (
-                  <a
-                    href={member.linkedin}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="member-social-link"
-                    title="LinkedIn Profile"
-                  >
-                    <LinkedInIcon size={15} />
-                    <span>LinkedIn</span>
-                  </a>
-                )}
-
-                {member.github && member.github !== 'NOT AVAILABLE' && (
-                  <a
-                    href={member.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="member-social-link"
-                    title="GitHub Profile"
-                  >
-                    <GitHubIcon size={15} />
-                    <span>GitHub</span>
-                  </a>
-                )}
+              <div className="member-name-group">
+                <h3>GPS Proximity & Live Resource Radar</h3>
+                <span className="member-role-badge">Haversine Geodesic Engine</span>
               </div>
             </div>
-          ))}
+            <p className="member-bio-text">
+              Real-time calculation of physical distance (in KM) and estimated driving time from user's live GPS coordinates to nearest PHC, CHC, District Hospitals, and Medical Colleges with live General & ICU bed counts.
+            </p>
+            <div className="member-contributions-box">
+              <strong>Key Capabilities:</strong>
+              <ul>
+                <li>Haversine mathematical geodesic distance algorithm</li>
+                <li>Live General, ICU & Oxygen bed vacancy meters</li>
+                <li>Anti-Snake Venom (ASV) emergency availability radar</li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Module 2: 9-Stage Tracker */}
+          <div className="team-member-card">
+            <div className="member-card-header">
+              <div className="member-avatar-circle" style={{ background: 'linear-gradient(135deg, #2563eb 0%, #3b82f6 100%)' }}>
+                <Activity size={20} color="white" />
+              </div>
+              <div className="member-name-group">
+                <h3>9-Stage Clinical Treatment Tracker</h3>
+                <span className="member-role-badge">Closed-Loop Referrals</span>
+              </div>
+            </div>
+            <p className="member-bio-text">
+              Eliminates rural referral drop-outs by tracking patient journeys step-by-step from Village Sub-Centre (ASHA) ➔ PHC ➔ CHC ➔ District Hospital to verify whether the patient received treatment ("इलाज हुआ या नहीं").
+            </p>
+            <div className="member-contributions-box">
+              <strong>Key Capabilities:</strong>
+              <ul>
+                <li>Digital Referral Slips with verifiable QR codes</li>
+                <li>Real-time clinical stage progress & doctor notes</li>
+                <li>Pre-allocated hospital bed & 108 ambulance dispatch</li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Module 3: Grievance Portal */}
+          <div className="team-member-card">
+            <div className="member-card-header">
+              <div className="member-avatar-circle" style={{ background: 'linear-gradient(135deg, #dc2626 0%, #ef4444 100%)' }}>
+                <AlertCircle size={20} color="white" />
+              </div>
+              <div className="member-name-group">
+                <h3>4-Level Auto-Escalating Grievance Cell</h3>
+                <span className="member-role-badge">Photo Evidence & 48h SLA</span>
+              </div>
+            </div>
+            <p className="member-bio-text">
+              Direct patient grievance redressal against overcharging, staff misconduct, or medicine stockouts with optional camera photo evidence and an automated 48-hour SLA escalation timer.
+            </p>
+            <div className="member-contributions-box">
+              <strong>Key Capabilities:</strong>
+              <ul>
+                <li>Optional camera/device photo evidence attachment</li>
+                <li>48-Hour SLA timer auto-escalating to DHO & Collector</li>
+                <li>Transparent public audit trail & Action Taken Reports (ATR)</li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Module 4: Offline PWA */}
+          <div className="team-member-card">
+            <div className="member-card-header">
+              <div className="member-avatar-circle" style={{ background: 'linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%)' }}>
+                <WifiOff size={20} color="white" />
+              </div>
+              <div className="member-name-group">
+                <h3>Offline-First PWA & Android Engine</h3>
+                <span className="member-role-badge">Zero-Internet Capability</span>
+              </div>
+            </div>
+            <p className="member-bio-text">
+              Engineered with Service Workers, IndexedDB, and Capacitor Native Android wrappers to function with 100% reliability in remote tribal forests with zero or intermittent 2G connectivity.
+            </p>
+            <div className="member-contributions-box">
+              <strong>Key Capabilities:</strong>
+              <ul>
+                <li>Workbox Service Worker caching & background sync</li>
+                <li>Capacitor native Android Studio project wrapper</li>
+                <li>PWA 1-click install banner with instant offline caching</li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Module 5: Multilingual Voice AI */}
+          <div className="team-member-card">
+            <div className="member-card-header">
+              <div className="member-avatar-circle" style={{ background: 'linear-gradient(135deg, #d97706 0%, #f59e0b 100%)' }}>
+                <Sparkles size={20} color="white" />
+              </div>
+              <div className="member-name-group">
+                <h3>Multilingual AI Voice Navigator</h3>
+                <span className="member-role-badge">Marathi / Hindi / English</span>
+              </div>
+            </div>
+            <p className="member-bio-text">
+              Voice-assisted clinical triage and symptom navigator enabling non-literate rural citizens to speak their symptoms in local dialects and receive instant care tier recommendations.
+            </p>
+            <div className="member-contributions-box">
+              <strong>Key Capabilities:</strong>
+              <ul>
+                <li>Web Speech STT & TTS in mr-IN, hi-IN, and en-IN</li>
+                <li>Triage urgency classification (Routine, Urgent, Emergency)</li>
+                <li>Red-flag symptom detection with 1-click 108 SOS alert</li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Module 6: Blood Bank & Schemes */}
+          <div className="team-member-card">
+            <div className="member-card-header">
+              <div className="member-avatar-circle" style={{ background: 'linear-gradient(135deg, #0284c7 0%, #0ea5e9 100%)' }}>
+                <Droplets size={20} color="white" />
+              </div>
+              <div className="member-name-group">
+                <h3>e-RaktKosh Blood Bank & MJPJAY 2.0</h3>
+                <span className="member-role-badge">Universal Cashless Health</span>
+              </div>
+            </div>
+            <p className="member-bio-text">
+              Real-time blood component availability across all 36 Maharashtra districts, along with ration-card eligibility checking for Maharashtra's universal ₹5 Lakh MJPJAY 2.0 cashless coverage.
+            </p>
+            <div className="member-contributions-box">
+              <strong>Key Capabilities:</strong>
+              <ul>
+                <li>Live stock counter for A+, B+, AB+, O+ and rare Bombay Blood</li>
+                <li>MJPJAY 2.0 ration card eligibility calculator</li>
+                <li>5-Tab government hospital fee & rate transparency</li>
+              </ul>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -349,7 +399,7 @@ export const Developers: React.FC<DevelopersProps> = ({ language }) => {
               <Code size={22} />
             </div>
             <h4>Full-Stack & Frontend</h4>
-            <p>React 19, TypeScript, React Router DOM v7, Vite, Lucide Icons, Mobile-first Responsive CSS.</p>
+            <p>React 19, TypeScript, React Router v7, Vite, Lucide Icons, Mobile-first Responsive CSS.</p>
           </div>
 
           <div className="tech-pillar-card">

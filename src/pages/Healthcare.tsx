@@ -296,12 +296,16 @@ export const Healthcare: React.FC<HealthcareProps> = ({ language }) => {
   ]);
 
   const openDirections = (facility: HealthcareFacility) => {
-    let url = `https://www.google.com/maps/dir/?api=1&destination=${facility.coordinates?.lat || ''},${facility.coordinates?.lng || ''}&destination_place_id=${encodeURIComponent(
-      facility.name
-    )}`;
-    if (userCoords) {
-      url += `&origin=${userCoords.lat},${userCoords.lng}`;
-    }
+    if (!facility.coordinates) return;
+    // Direct Google Maps Driving Turn-by-Turn GPS navigation
+    const url = `https://www.google.com/maps/dir/?api=1&destination=${facility.coordinates.lat},${facility.coordinates.lng}&travelmode=driving`;
+    window.open(url, '_blank');
+  };
+
+  const openMapPin = (facility: HealthcareFacility) => {
+    if (!facility.coordinates) return;
+    // Direct Google Maps Search Pin at exact building coordinates
+    const url = `https://www.google.com/maps/search/?api=1&query=${facility.coordinates.lat},${facility.coordinates.lng}`;
     window.open(url, '_blank');
   };
 
@@ -350,14 +354,14 @@ export const Healthcare: React.FC<HealthcareProps> = ({ language }) => {
 
         {/* Quick Regional Presets for Instant Demo */}
         <div className="quick-presets-group">
-          <span className="preset-label">Quick Presets:</span>
+          <span className="preset-label">📍 Quick Region Presets:</span>
           <button
             className="preset-pill-btn"
             onClick={() =>
               handleDetectLocation({
                 lat: 18.5284,
                 lng: 73.8742,
-                name: 'Pune City',
+                name: 'Pune City (BJMC Sassoon Hub)',
               })
             }
           >
@@ -367,9 +371,9 @@ export const Healthcare: React.FC<HealthcareProps> = ({ language }) => {
             className="preset-pill-btn"
             onClick={() =>
               handleDetectLocation({
-                lat: 18.9438,
-                lng: 72.8358,
-                name: 'Mumbai City',
+                lat: 18.9994,
+                lng: 72.8427,
+                name: 'Mumbai City (KEM Hospital Hub)',
               })
             }
           >
@@ -379,9 +383,45 @@ export const Healthcare: React.FC<HealthcareProps> = ({ language }) => {
             className="preset-pill-btn"
             onClick={() =>
               handleDetectLocation({
+                lat: 21.1349,
+                lng: 79.0982,
+                name: 'Nagpur (GMCH Vidarbha Hub)',
+              })
+            }
+          >
+            Nagpur
+          </button>
+          <button
+            className="preset-pill-btn"
+            onClick={() =>
+              handleDetectLocation({
+                lat: 19.9975,
+                lng: 73.7898,
+                name: 'Nashik (Civil Hospital Hub)',
+              })
+            }
+          >
+            Nashik
+          </button>
+          <button
+            className="preset-pill-btn"
+            onClick={() =>
+              handleDetectLocation({
+                lat: 19.8762,
+                lng: 75.3433,
+                name: 'Chh. Sambhajinagar (Ghati GMCH)',
+              })
+            }
+          >
+            Sambhajinagar
+          </button>
+          <button
+            className="preset-pill-btn"
+            onClick={() =>
+              handleDetectLocation({
                 lat: 19.4147,
                 lng: 79.9912,
-                name: 'Gadchiroli (Tribal Belt)',
+                name: 'Gadchiroli (Aheri Tribal Belt)',
               })
             }
           >
@@ -391,13 +431,85 @@ export const Healthcare: React.FC<HealthcareProps> = ({ language }) => {
             className="preset-pill-btn"
             onClick={() =>
               handleDetectLocation({
-                lat: 19.9248,
-                lng: 73.2341,
-                name: 'Palghar (Rural/Coastal)',
+                lat: 19.9723,
+                lng: 72.7319,
+                name: 'Palghar (Dahanu Coastal Sub-District)',
               })
             }
           >
             Palghar
+          </button>
+          <button
+            className="preset-pill-btn"
+            onClick={() =>
+              handleDetectLocation({
+                lat: 16.6983,
+                lng: 74.2238,
+                name: 'Kolhapur (CPR Civil Hospital)',
+              })
+            }
+          >
+            Kolhapur
+          </button>
+          <button
+            className="preset-pill-btn"
+            onClick={() =>
+              handleDetectLocation({
+                lat: 19.1557,
+                lng: 77.3155,
+                name: 'Nanded (Dr. SC GMC Hospital)',
+              })
+            }
+          >
+            Nanded
+          </button>
+          <button
+            className="preset-pill-btn"
+            onClick={() =>
+              handleDetectLocation({
+                lat: 21.3739,
+                lng: 74.2403,
+                name: 'Nandurbar (Tribal Civil Hospital)',
+              })
+            }
+          >
+            Nandurbar
+          </button>
+          <button
+            className="preset-pill-btn"
+            onClick={() =>
+              handleDetectLocation({
+                lat: 19.1982,
+                lng: 72.9984,
+                name: 'Thane (CSMH Kalwa Hospital)',
+              })
+            }
+          >
+            Thane
+          </button>
+          <button
+            className="preset-pill-btn"
+            onClick={() =>
+              handleDetectLocation({
+                lat: 20.932,
+                lng: 77.7523,
+                name: 'Amravati (Irwin Civil Hospital)',
+              })
+            }
+          >
+            Amravati
+          </button>
+          <button
+            className="preset-pill-btn"
+            onClick={() =>
+              handleDetectLocation({
+                lat: 17.6805,
+                lng: 73.9934,
+                name: 'Satara (Civil Hospital Hub)',
+              })
+            }
+          >
+            Satara
           </button>
         </div>
       </div>
@@ -958,26 +1070,41 @@ export const Healthcare: React.FC<HealthcareProps> = ({ language }) => {
 
                 {/* Facility Card Footer Actions */}
                 <div className="facility-actions-footer">
-                  <a href={`tel:${facility.phone}`} className="facility-call-btn">
+                  <a
+                    href={`tel:${facility.emergencyPhone || facility.phone}`}
+                    className="facility-call-btn"
+                    title="Call 24x7 Emergency Desk"
+                  >
                     <PhoneCall size={15} />
-                    <span>{t.btnContact}</span>
+                    <span>24x7 Helpline</span>
                   </a>
 
                   <button
                     className="facility-directions-btn"
                     onClick={() => openDirections(facility)}
+                    title="Launch Google Maps Live Driving GPS Navigation"
                   >
                     <Navigation size={15} />
                     <span>
                       {facility.calculatedDistance !== null
-                        ? `Navigate (${facility.calculatedDistance} km)`
-                        : t.btnDirections}
+                        ? `GPS Navigation (${facility.calculatedDistance} km)`
+                        : 'GPS Navigation'}
                     </span>
+                  </button>
+
+                  <button
+                    className="facility-map-pin-btn"
+                    onClick={() => openMapPin(facility)}
+                    title="View Exact Hospital Location on Google Maps"
+                  >
+                    <MapPin size={15} />
+                    <span>Map Pin</span>
                   </button>
 
                   <button
                     className="facility-token-btn"
                     onClick={() => setTokenModalFacility(facility)}
+                    title="Book Instant Digital OPD Token"
                   >
                     <Ticket size={15} />
                     <span>{t.btnBookOpd}</span>
@@ -986,6 +1113,7 @@ export const Healthcare: React.FC<HealthcareProps> = ({ language }) => {
                   <button
                     className="facility-referral-btn"
                     onClick={() => navigate('/referrals')}
+                    title="Issue Inter-Hospital Digital Referral"
                   >
                     <Stethoscope size={15} />
                     <span>{t.btnCreateReferral}</span>

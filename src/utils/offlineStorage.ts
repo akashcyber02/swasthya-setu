@@ -69,7 +69,8 @@ export interface UserAuthSession {
 
 export function initializeOfflineStorage(): void {
   try {
-    if (!localStorage.getItem(STORAGE_KEYS.FACILITIES)) {
+    const storedFacs = localStorage.getItem(STORAGE_KEYS.FACILITIES);
+    if (!storedFacs || JSON.parse(storedFacs).length < MAHARASHTRA_FACILITIES.length) {
       localStorage.setItem(
         STORAGE_KEYS.FACILITIES,
         JSON.stringify(MAHARASHTRA_FACILITIES)
@@ -104,7 +105,8 @@ export function initializeOfflineStorage(): void {
       );
     }
 
-    if (!localStorage.getItem(STORAGE_KEYS.BLOOD_BANKS)) {
+    const storedBlood = localStorage.getItem(STORAGE_KEYS.BLOOD_BANKS);
+    if (!storedBlood || JSON.parse(storedBlood).length < MAHARASHTRA_BLOOD_BANKS.length) {
       localStorage.setItem(
         STORAGE_KEYS.BLOOD_BANKS,
         JSON.stringify(MAHARASHTRA_BLOOD_BANKS)
@@ -150,7 +152,14 @@ export function initializeOfflineStorage(): void {
 export function getStoredFacilities(): HealthcareFacility[] {
   try {
     const raw = localStorage.getItem(STORAGE_KEYS.FACILITIES);
-    if (raw) return JSON.parse(raw);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (parsed.length >= MAHARASHTRA_FACILITIES.length) {
+        return parsed;
+      }
+      localStorage.setItem(STORAGE_KEYS.FACILITIES, JSON.stringify(MAHARASHTRA_FACILITIES));
+      return MAHARASHTRA_FACILITIES;
+    }
   } catch (e) {
     console.warn('Error reading facilities', e);
   }
@@ -296,7 +305,14 @@ export function updateTreatmentStage(
 export function getStoredBloodBanks(): BloodBank[] {
   try {
     const raw = localStorage.getItem(STORAGE_KEYS.BLOOD_BANKS);
-    if (raw) return JSON.parse(raw);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (parsed.length >= MAHARASHTRA_BLOOD_BANKS.length) {
+        return parsed;
+      }
+      localStorage.setItem(STORAGE_KEYS.BLOOD_BANKS, JSON.stringify(MAHARASHTRA_BLOOD_BANKS));
+      return MAHARASHTRA_BLOOD_BANKS;
+    }
   } catch (e) {
     console.warn('Error reading blood banks', e);
   }

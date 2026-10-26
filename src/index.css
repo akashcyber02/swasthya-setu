@@ -1,27 +1,60 @@
 :root {
+  /* Brand Government Colors */
   --primary: #087f5b;
   --primary-hover: #06694b;
   --primary-light: #e6fcf5;
+  --primary-glow: rgba(8, 127, 91, 0.25);
+
   --secondary: #1864ab;
-  --accent: #e8590c;
-  --emergency: #c92a2a;
+  --secondary-hover: #14528c;
+  --secondary-light: #e7f5ff;
+
+  --accent: #f59f00;
+  --accent-gold: #d97706;
+  --accent-light: #fff9db;
+
+  --emergency: #e03131;
+  --emergency-hover: #c92a2a;
   --emergency-light: #ffe3e3;
-  --text-main: #1f2937;
-  --text-muted: #4b5563;
-  --text-light: #6b7280;
-  --bg-page: #f8faf9;
+  --emergency-glow: rgba(224, 49, 49, 0.35);
+
+  --gov-navy: #0b1329;
+  --gov-navy-card: #131f3f;
+  --gov-navy-border: rgba(255, 255, 255, 0.12);
+
+  /* Text & Surfaces */
+  --text-main: #0f172a;
+  --text-muted: #475569;
+  --text-light: #64748b;
+  --text-inverse: #ffffff;
+
+  --bg-page: #f8fafc;
   --bg-card: #ffffff;
+  --bg-card-hover: #fcfdfd;
   --border-color: #e2e8f0;
   --border-light: #f1f5f9;
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 18px;
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.04);
-  --shadow-lg: 0 12px 28px rgba(0, 0, 0, 0.1), 0 4px 10px rgba(0, 0, 0, 0.05);
+  --border-focus: #0ca678;
 
-  font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
+  /* 3D Glassmorphism & Elevation */
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-pill: 9999px;
+
+  --shadow-sm: 0 2px 4px rgba(15, 23, 42, 0.04), 0 1px 2px rgba(15, 23, 42, 0.02);
+  --shadow-md: 0 6px 16px -2px rgba(15, 23, 42, 0.08), 0 2px 6px -1px rgba(15, 23, 42, 0.04);
+  --shadow-lg: 0 16px 32px -4px rgba(15, 23, 42, 0.1), 0 6px 12px -2px rgba(15, 23, 42, 0.05);
+  --shadow-xl: 0 24px 48px -8px rgba(15, 23, 42, 0.14), 0 12px 24px -4px rgba(15, 23, 42, 0.08);
+
+  --shadow-3d-btn: 0 4px 0 #055a40, 0 8px 16px rgba(8, 127, 91, 0.25);
+  --shadow-3d-btn-amber: 0 4px 0 #b45309, 0 8px 16px rgba(245, 159, 0, 0.3);
+  --shadow-3d-card: 0 10px 30px -5px rgba(0, 0, 0, 0.07), 0 0 0 1px rgba(226, 232, 240, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+
+  /* Fonts */
+  font-family: 'Plus Jakarta Sans', 'Noto Sans Devanagari', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.55;
   font-weight: 400;
   color: var(--text-main);
   background-color: var(--bg-page);
@@ -41,6 +74,8 @@ body {
   min-height: 100vh;
   background-color: var(--bg-page);
   color: var(--text-main);
+  overflow-x: hidden;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
 }
 
 #root {
@@ -51,6 +86,13 @@ body {
   text-align: left;
 }
 
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Outfit', 'Plus Jakarta Sans', 'Noto Sans Devanagari', sans-serif;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
 a {
   color: inherit;
   text-decoration: none;
@@ -59,9 +101,60 @@ a {
 button {
   font-family: inherit;
   cursor: pointer;
+  border: none;
+  outline: none;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+button:active {
+  transform: translateY(1px) scale(0.98);
 }
 
 input, select, textarea {
   font-family: inherit;
   font-size: 14px;
+}
+
+/* Custom Sleek Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Glassmorphism utility classes */
+.glass-panel-3d {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  box-shadow: var(--shadow-3d-card);
+  border-radius: var(--radius-lg);
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(8, 127, 91, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(8, 127, 91, 0.7);
+  }
+}
+
+@keyframes floatGentle {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
 }

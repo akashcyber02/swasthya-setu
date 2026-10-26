@@ -123,7 +123,7 @@ export const Login: React.FC<LoginProps> = ({ language, onLoginSuccess }) => {
             🏛️ <strong>सार्वजनिक आरोग्य विभाग, महाराष्ट्र शासन</strong>
             <h1>Swasthya Setu Maharashtra</h1>
             <p>
-              Unified Healthcare Authentication Gateway for Citizens, Doctors, ASHA Workers, and District Administrators under SIH26133.
+              Unified Healthcare Authentication Gateway for Citizens, Doctors, ASHA Workers, and District Administrators across Maharashtra.
             </p>
           </div>
 
